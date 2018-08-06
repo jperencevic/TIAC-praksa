@@ -1,11 +1,11 @@
 <form class="form-horizontal">
 
-  <div class="form-group">
+  <div class="form-group row">
     <label class="control-label" for="tagName">tag-name:</label>
     <input type="text" class="form-control" id="tagName" name="tagName" [(ngModel)]="data.tagName" readonly>
   </div>
 
-  <div class="form-group">
+  <div class="form-group row">
     <label class="control-label" for="clr">color:</label>
     <input [(colorPicker)]="data.color" [style.background]="data.color" class="form-control color" id="clr" />
   </div>
