@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { TableViewComponent } from './table-view/table-view.component';
 import { FormViewComponent } from './form-view/form-view.component';
 import { LiveViewComponent } from './live-view/live-view.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { LiveViewComponent } from './live-view/live-view.component';
   imports: [
     BrowserModule,
     FormsModule,
-    ColorPickerModule
+    ColorPickerModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
