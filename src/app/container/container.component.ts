@@ -14,9 +14,9 @@ export class ContainerComponent implements OnInit {
   ngOnInit() {
   }
 
-  onNew(selected: string) {
-    this.optionsService.getOp(selected).subscribe(_ => this.active = _);
-    console.log(this.active.settings);
+  onNew(selected: Options) {
+    // this.optionsService.getOp(selected).subscribe(_ => this.active = _);
+    this.active = selected;
   }
 
 }

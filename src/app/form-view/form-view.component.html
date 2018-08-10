@@ -7,7 +7,8 @@
   <app-line-style *ngIf="s.type == 'LineStyle'" [element] = "s"></app-line-style>
   <app-font *ngIf="s.type == 'Font'" [element] = "s"></app-font>
   <app-position *ngIf="s.type == 'Position'" [element] = "s"></app-position>
-  <app-boolean *ngIf="s.type == 'Boolean'" [element] = "s"></app-boolean>
+  <!-- <app-boolean *ngIf="s.type == 'Boolean'" [element] = "s"></app-boolean> -->
+  <app-textfield *ngIf="s.type == 'Boolean'" [element] = "s"></app-textfield>
 </div>
 
 </form>

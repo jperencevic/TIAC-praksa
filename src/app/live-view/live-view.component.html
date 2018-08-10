@@ -6,7 +6,7 @@
   <div class="form-group">
     <label for="opt" class="col-sm-4 col-form-label">Create new:</label>
     <select id="opt" class="form-control" name="op" [(ngModel)]="selectedOp">
-      <option *ngFor="let x of options" [value]="x._id">{{x.objectType}}</option>
+      <option *ngFor="let x of options" [ngValue]="x">{{x.objectType}}</option>
     </select>
     <button type="submit" class="btn btn-primary" (click)='ExposeSelectedOp()'>new</button>
   </div>

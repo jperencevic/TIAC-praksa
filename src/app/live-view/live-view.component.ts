@@ -9,11 +9,10 @@ import { OptionsService } from "../services/options.service";
 })
 export class LiveViewComponent implements OnInit {
   options:Options [];
-  selectedOp = "";
-  @Output() eventter = new EventEmitter<string>();
+  selectedOp: Options;
+  @Output() eventter = new EventEmitter<Options>();
 
   constructor(private optionsService: OptionsService) {
-    // this.selectedOp = new Options();
   }
 
   ngOnInit() {
