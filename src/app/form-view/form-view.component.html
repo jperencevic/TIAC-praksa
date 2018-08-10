@@ -1,53 +1,13 @@
 <form class="form-horizontal">
 
-  <div class="form-group row">
-    <label class="control-label" for="tagName">tag-name:</label>
-    <input type="text" class="form-control" id="tagName" name="tagName" [(ngModel)]="data.tagName" readonly>
-  </div>
-
-  <div class="form-group row">
-    <label class="control-label" for="clr">color:</label>
-    <input [(colorPicker)]="data.color" [style.background]="data.color" class="form-control color" id="clr" />
-  </div>
-
-  <div class="form-group">
-    <label class="control-label" for="fontSize">font-size (px):</label>
-    <input type="number" class="form-control" id="fontSize" name="fontSize" [(ngModel)]="data.fontSize">
-  </div>
-
-  <div class="form-group">
-    <label class="control-label" for="fontWeight">font-weight:</label>
-    <input type="number" class="form-control" id="fontWeight" name="fontWeight" [(ngModel)]="data.fontWeight">
-  </div>
-
-  <div class="form-group">
-    <label class="control-label" for="padding">padding (px):</label>
-    <input type="number" class="form-control" id="padding" name="padding" [(ngModel)]="data.padding">
-  </div>
-
-  <div class="form-group">
-    <label class="control-label" for="width">width (px):</label>
-    <input type="number" class="form-control" id="width" name="width" [(ngModel)]="data.width">
-  </div>
-
-  <div class="form-group">
-    <label class="control-label" for="height">height (px):</label>
-    <input type="number" class="form-control" id="height" name="height" [(ngModel)]="data.height">
-  </div>
-
-  <div class="form-group">
-    <label class="control-label" for="borderWidth">border-width (px):</label>
-    <input type="number" class="form-control" id="borderWidth" name="borderWidth" [(ngModel)]="data.borderWidth">
-  </div>
-
-  <div class="form-group">
-    <label class="control-label" for="borderRadius">border-radius (px):</label>
-    <input type="number" class="form-control" id="borderRadius" name="borderRadius" [(ngModel)]="data.borderRadius">
-  </div>
-
-  <div class="form-group">
-    <label class="control-label" for="bgclr">background-color:</label>
-    <input [(colorPicker)]="data.backgroundColor" [style.background]="data.backgroundColor" class="form-control color" id="bgclr" />
-  </div>
+<div *ngFor="let s of option.settings">
+  <app-colorpick *ngIf="s.type === 'Color'" [element] = "s"></app-colorpick>
+  <app-numberfield *ngIf="s.type === 'Integer'" [element] = "s"></app-numberfield>
+  <app-textfield *ngIf="s.type == 'Text'" [element] = "s"></app-textfield>
+  <app-line-style *ngIf="s.type == 'LineStyle'" [element] = "s"></app-line-style>
+  <app-font *ngIf="s.type == 'Font'" [element] = "s"></app-font>
+  <app-position *ngIf="s.type == 'Position'" [element] = "s"></app-position>
+  <app-boolean *ngIf="s.type == 'Boolean'" [element] = "s"></app-boolean>
+</div>
 
 </form>
