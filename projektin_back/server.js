@@ -71,10 +71,27 @@ router.route('/elements/add').post((req, res) => {
 });
 
 router.route('/elements/delete/:id').delete((req, res) => {
-    Elements.remove({_id: req.params.id}, (err, issue) => {
+    Elements.remove({_id: req.params.id}, (err, element) => {
         if (err)
             res.json(err);
         else
             res.json('Removed successfully');
+    });
+});
+
+router.route('/elements/update/:id').put((req, res) => {
+    Elements.findById(req.params.id, (err, element) => {
+        if (!element)
+            return next(new Error('Could not load Document'));
+        else {
+            element.objectType = req.body.objectType;
+            element.settings = req.body.settings;
+
+            element.save().then(element => {
+                res.json('Update done');
+            }).catch(err => {
+                res.status(400).send('Update failed');
+            });
+        }
     });
 });

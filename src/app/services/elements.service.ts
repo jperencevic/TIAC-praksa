@@ -33,4 +33,8 @@ export class ElementsService {
   deleteEl(id: string): Observable<Elements> {
     return this.httpClient.delete<Elements>(`${this.uri}/delete/${id}`)
   }
+
+  updateElement(updatedElement: Elements): Observable<Elements> {
+    return this.httpClient.put<Elements>(`${this.uri}/update/${updatedElement._id}`, updatedElement);
+  }
 }

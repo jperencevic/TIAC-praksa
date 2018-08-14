@@ -16,6 +16,7 @@ export class LiveViewComponent implements OnInit {
 
   elements: Elements[];
   selectedElement: Elements;
+  selectedElementExists:boolean =false;
 
   @Output()
   eventter = new EventEmitter<Options>();
@@ -49,18 +50,18 @@ export class LiveViewComponent implements OnInit {
     this.showSelectOptions=true;
   }
   ExposeSelectedOp() {
-    this.selectedElement=new Elements();
+    this.selectedElement=null;
     this.eventter.emit(this.selectedOption);
   }
 
   onChange(): void {
     this.showSelectOptions=false;
-  
+    this.selectedElementExists = true;
 
     this.options.filter(option => { if (option.objectType==this.selectedElement.objectType) this.selectedOption=option})
     this.elEvent.emit({element:this.selectedElement, option:this.selectedOption});
-    console.log(this.selectedElement);
-    console.log(this.selectedOption);
+    // console.log(this.selectedElement);
+    // console.log(this.selectedOption);
   }
 
   SaveElement() {
@@ -69,6 +70,10 @@ export class LiveViewComponent implements OnInit {
   }
   DeleteElement() {
     this.elementsService.deleteEl(this.selectedElement._id).subscribe();
+  }
+
+  UpdateElement(){
+    this.elementsService.updateElement(this.selectedElement).subscribe();
   }
   // setMyStyles() {
   //   let styles = {
