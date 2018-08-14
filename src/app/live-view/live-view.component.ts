@@ -14,14 +14,14 @@ export class LiveViewComponent implements OnInit {
   selectedOp: Options;
 
   elements: Elements[];
-  selectedEl: Elements;
+  // selectedEl: Elements;
 
   @Input()
   element: Elements;
   @Output()
   eventter = new EventEmitter<Options>();
   @Output()
-  elEvent = new EventEmitter<Elements>();
+  elEvent = new EventEmitter<string>();
 
   constructor(
     private optionsService: OptionsService,
@@ -47,8 +47,8 @@ export class LiveViewComponent implements OnInit {
   }
 
   onChange(event): void {
-    this.selectedEl = event.target.value || "";
-    this.elEvent.emit(this.selectedEl);
+    const selectedEl = event.target.value || "";
+    this.elEvent.emit(selectedEl);
   }
 
   SaveElement() {
