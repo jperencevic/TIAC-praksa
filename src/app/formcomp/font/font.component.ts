@@ -6,7 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./font.component.css']
 })
 export class FontComponent implements OnInit {
-  @Input() element: any;
+  @Input() formEl: any;
+  @Input() el: any;
   fonts = ["Times New Roman"]
   constructor() { }
 

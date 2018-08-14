@@ -7,16 +7,16 @@ import { Options } from "../../models/options";
   providedIn: "root"
 })
 export class OptionsService {
-  uri = "http://localhost:4000";
+  uri = "http://localhost:4000/options";
   currentOp: Options;
 
   constructor(private httpClient: HttpClient) {}
 
   getOptions(): Observable<any> {
-    return this.httpClient.get<any>(`${this.uri}/options`);
+    return this.httpClient.get<any>(this.uri);
   }
 
   getOp(id: string): Observable<Options> {
-    return this.httpClient.get<Options>(`${this.uri}/options/${id}`);
+    return this.httpClient.get<Options>(`${this.uri}/${id}`);
   }
 }

@@ -7,7 +7,8 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class NumberfieldComponent implements OnInit {
   @Input()
-  element: any;
+  formEl: any;
+  @Input() el: any;
   constructor() {}
 
   ngOnInit() {}

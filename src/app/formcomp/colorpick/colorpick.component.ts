@@ -7,7 +7,8 @@ import { Options } from '../../../models/options';
   styleUrls: ['./colorpick.component.css']
 })
 export class ColorpickComponent implements OnInit {
-  @Input() element: any;
+  @Input() formEl: any;
+  @Input() el: any;
 
   constructor() { }
 

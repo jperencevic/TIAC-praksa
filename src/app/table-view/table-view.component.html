@@ -8,7 +8,8 @@
   <tbody>
     <tr *ngFor="let s of option.settings">
       <td>{{s.title}}</td>
-      <td>{{s.defaultValue}}</td>
+      <!-- <td>{{(element) ? element.settings[s.name] : s.defaultValue }}</td> -->
+      <td>{{getSettngs(s)}}</td>
     </tr>
   </tbody>
 </table> 

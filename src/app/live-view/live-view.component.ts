@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Options } from "../../models/options";
 import { OptionsService } from "../services/options.service";
+import { ElementsService } from "../services/elements.service";
+import { Elements } from "../../models/elements";
 
 @Component({
   selector: "app-live-view",
@@ -8,25 +10,57 @@ import { OptionsService } from "../services/options.service";
   styleUrls: ["./live-view.component.css"]
 })
 export class LiveViewComponent implements OnInit {
-  options:Options [];
+  options: Options[];
   selectedOp: Options;
-  @Output() eventter = new EventEmitter<Options>();
 
-  constructor(private optionsService: OptionsService) {
+  elements: Elements[];
+  selectedEl: Elements;
+
+  @Input()
+  element: Elements;
+  @Output()
+  eventter = new EventEmitter<Options>();
+  @Output()
+  elEvent = new EventEmitter<Elements>();
+
+  constructor(
+    private optionsService: OptionsService,
+    private elementsService: ElementsService
+  ) {
+    console.log(this.selectedEl);
   }
 
   ngOnInit() {
     this.populateOptions();
+    this.populateElements();
   }
 
   populateOptions() {
     this.optionsService.getOptions().subscribe(_ => (this.options = _));
   }
 
+  populateElements() {
+    this.elementsService.getElements().subscribe(_ => (this.elements = _));
+  }
+
   ExposeSelectedOp() {
     this.eventter.emit(this.selectedOp);
   }
 
+  onChange(event): void {
+    this.selectedEl = event.target.value || "";
+    console.log(this.selectedEl);
+    this.elEvent.emit(this.selectedEl);
+  }
+
+  SaveElement() {
+    this.elementsService.addElement(this.selectedOp).subscribe();
+    this.ngOnInit();
+
+  }
+  DeleteElement(){
+    this.elementsService.deleteEl(this.element._id).subscribe();
+  }
   // setMyStyles() {
   //   let styles = {
   //     color: this.data.color,

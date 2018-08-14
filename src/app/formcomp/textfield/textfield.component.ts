@@ -6,7 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./textfield.component.css']
 })
 export class TextfieldComponent implements OnInit {
-  @Input() element: any;
+  @Input() formEl: any;
+  @Input() el: any;
   constructor() { }
 
   ngOnInit() {

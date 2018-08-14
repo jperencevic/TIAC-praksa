@@ -1,6 +1,13 @@
-<div class="form-group">
-  <label for="ls" class="col-sm-4 col-form-label">{{element.title}}</label>
-  <select id="ls" class="form-control"  name="element.title" [(ngModel)]="element.defaultValue" >
+<div class="form-group" *ngIf="!el._id">
+  <label for="ls" class="col-sm-4 col-form-label">{{formEl.title}}</label>
+  <select id="ls" class="form-control"  name="formEl.title" [(ngModel)]="formEl.defaultValue" >
+    <option  *ngFor="let f of fonts" [ngValue]="f">{{f}}</option>
+  </select>
+</div>
+
+<div class="form-group" *ngIf="el._id">
+  <label for="ls" class="col-sm-4 col-form-label">{{formEl.title}}</label>
+  <select id="ls" class="form-control"  name="formEl.title" [(ngModel)]="el.settings[formEl.name]" >
     <option  *ngFor="let f of fonts" [ngValue]="f">{{f}}</option>
   </select>
 </div>

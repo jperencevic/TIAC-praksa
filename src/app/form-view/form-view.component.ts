@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Options } from "../../models/options";
+import { Elements } from "../../models/elements";
 
 @Component({
   selector: "app-form-view",
@@ -8,6 +9,7 @@ import { Options } from "../../models/options";
 })
 export class FormViewComponent implements OnInit {
   @Input() option: Options;
+  @Input() element: Elements;
 
   constructor() {}
 

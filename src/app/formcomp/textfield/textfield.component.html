@@ -1,4 +1,9 @@
-<div class="form-group row">
-  <label class="control-label" for="element.name">{{element.title}}</label>
-  <input type="text" class="form-control" id="element.name" name="element.title" [(ngModel)]="element.defaultValue" >
+<div class="form-group row" *ngIf="!el._id">
+  <label class="control-label" for="formEl.name">{{formEl.title}}</label>
+  <input type="text" class="form-control" id="formEl.name" name="formEl.title" [(ngModel)]="formEl.defaultValue">
+</div>
+
+<div class="form-group row" *ngIf="el._id">
+  <label class="control-label" for="formEl.name">{{formEl.title}}</label>
+  <input type="text" class="form-control" id="formEl.name" name="formEl.title" [(ngModel)]="el.settings[formEl.name]">
 </div>

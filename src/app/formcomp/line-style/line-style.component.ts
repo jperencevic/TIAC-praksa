@@ -6,7 +6,8 @@ import { Component, OnInit, Input } from "@angular/core";
   styleUrls: ["./line-style.component.css"]
 })
 export class LineStyleComponent implements OnInit {
- @Input() element : any;
+ @Input() formEl : any;
+ @Input() el: any;
  styles=['solid', 'dashed', 'dotted'];
 
   constructor() {

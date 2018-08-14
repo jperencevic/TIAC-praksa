@@ -1,4 +1,9 @@
-<div class="form-group">
-  <label class="control-label" for="element.name"> {{element.title}}</label>
-  <input [(colorPicker)]="element.defaultValue" [style.background]="element.defaultValue" class="form-control color" id="element.name" />
+<div class="form-group" *ngIf="!el._id">
+  <label class="control-label" for="formEl.name"> {{formEl.title}}</label>
+  <input [(colorPicker)]="formEl.defaultValue" [style.background]="formEl.defaultValue" class="form-control color" id="formEl.name" />
+</div>
+
+<div class="form-group" *ngIf="el._id">
+  <label class="control-label" for="formEl.name"> {{formEl.title}}</label>
+  <input [(colorPicker)]="el.settings[formEl.name]" [style.background]="el.settings[formEl.name]" class="form-control color" id="formEl.name" />
 </div>

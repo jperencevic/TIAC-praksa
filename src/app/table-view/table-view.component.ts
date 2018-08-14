@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Options } from "../../models/options";
-import { OptionsService } from "../services/options.service";
+import { Elements } from "../../models/elements";
 
 @Component({
   selector: "app-table-view",
@@ -9,10 +9,18 @@ import { OptionsService } from "../services/options.service";
 })
 export class TableViewComponent implements OnInit{
    @Input() option: Options;
+   @Input() element: Elements;
 
-  constructor(private optionsService: OptionsService) {}
+  constructor() {}
 
   ngOnInit() {}
+
+  getSettngs(s: any): string{
+    if (this.element._id){
+      return this.element.settings [s.name];
+    }
+    return s.defaultValue;
+  }
 
 
 }
