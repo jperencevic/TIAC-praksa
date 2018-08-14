@@ -14,30 +14,27 @@ export class LiveViewComponent implements OnInit {
   options: Options[];
   selectedOption: Options;
   selectedOptionExists: boolean = false;
-  
 
   elements: Elements[];
   selectedElement: Elements;
-  selectedElementExists:boolean =false;
+  selectedElementExists: boolean = false;
 
   @Output()
   eventter = new EventEmitter<Options>();
   @Output()
-  elEvent = new EventEmitter<{element:Elements, option:Options}>();
+  elEvent = new EventEmitter<{ element: Elements; option: Options }>();
 
   constructor(
     private optionsService: OptionsService,
     private elementsService: ElementsService
   ) {
-    this.selectedOption=new Options();
-    this.selectedElement=new Elements();
-    
+    this.selectedOption = new Options();
+    this.selectedElement = new Elements();
   }
 
   ngOnInit() {
     this.populateOptions();
     this.populateElements();
-
   }
 
   populateOptions() {
@@ -48,37 +45,48 @@ export class LiveViewComponent implements OnInit {
     this.elementsService.getElements().subscribe(_ => (this.elements = _));
   }
 
-  ShowOptionsSelections(){
-
-    this.showSelectOptions=true;
+  ShowOptionsSelections() {
+    this.showSelectOptions = true;
     this.selectedElement = null;
-
   }
   ExposeSelectedOp() {
-    this.selectedElement=null;
+    this.selectedElement = null;
     this.eventter.emit(this.selectedOption);
-    this.selectedOptionExists= true;
+    this.selectedOptionExists = true;
   }
 
   onChange(): void {
-    this.showSelectOptions=false;
+    this.showSelectOptions = false;
     this.selectedOptionExists = false;
     this.selectedElementExists = true;
 
-    this.options.filter(option => { if (option.objectType==this.selectedElement.objectType) this.selectedOption=option})
-    this.elEvent.emit({element:this.selectedElement, option:this.selectedOption});
-    // console.log(this.selectedElement);
-    // console.log(this.selectedOption);
+    this.options.filter(option => {
+      if (option.objectType == this.selectedElement.objectType)
+        this.selectedOption = option;
+    });
+    this.elEvent.emit({
+      element: this.selectedElement,
+      option: this.selectedOption
+    });
   }
 
   SaveElement() {
-    this.elementsService.addElement(this.selectedOption).subscribe();
+    this.elementsService.addElement(this.selectedOption).subscribe(_ => {
+      this.selectedElement = _;
+      this.elementsService.getElements().subscribe(_ => (this.elements = _));
+    });
+
+    this.showSelectOptions = false;
   }
   DeleteElement() {
-    this.elementsService.deleteEl(this.selectedElement._id).subscribe();
+    this.elementsService
+      .deleteEl(this.selectedElement._id)
+      .subscribe(_ =>
+        this.elementsService.getElements().subscribe(_ => (this.elements = _))
+      );
   }
 
-  UpdateElement(){
+  UpdateElement() {
     this.elementsService.updateElement(this.selectedElement).subscribe();
   }
   // setMyStyles() {

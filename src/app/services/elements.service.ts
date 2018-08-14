@@ -11,14 +11,14 @@ export class ElementsService {
   uri = "http://localhost:4000/elements";
   constructor(private httpClient: HttpClient) { }
 
-  addElement(elAsOp: Options) {
+  addElement(elAsOp: Options):Observable<Elements> {
     const element = new Elements();
     element.objectType=elAsOp.objectType;
     element.settings = {};
     elAsOp.settings.forEach(s => {
       element.settings[s.name] = s.defaultValue; 
     });
-    return this.httpClient.post(`${this.uri}/add`, element);
+    return this.httpClient.post<Elements>(`${this.uri}/add`, element);
   }
   
 
