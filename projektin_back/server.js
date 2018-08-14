@@ -1,6 +1,4 @@
-// import cors from 'cors';
-// import Options from './models/Options';
-// import Elements from './models/Elements';
+
 var express = require('express');
 var mongoose = require('mongoose'); //created model loading here
 const bodyParser = require('body-parser');
@@ -63,8 +61,6 @@ router.route('/elements/:id').get((req, res) => {
 
 router.route('/elements/add').post((req, res) => {
     let element = new Elements(req.body);
-    console.log(req.body);
-    console.log(element);
     element.save()
         .then(element => {
             res.status(200).json({'element': element});

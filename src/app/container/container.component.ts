@@ -31,7 +31,5 @@ export class ContainerComponent implements OnInit {
         .getOp(this.activeEl.objectType)
         .subscribe(_ => (this.activeOp = _));
     });
-
-    console.log(this.activeOp);
   }
 }

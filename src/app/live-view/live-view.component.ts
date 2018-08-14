@@ -27,7 +27,6 @@ export class LiveViewComponent implements OnInit {
     private optionsService: OptionsService,
     private elementsService: ElementsService
   ) {
-    console.log(this.selectedEl);
   }
 
   ngOnInit() {
@@ -49,7 +48,6 @@ export class LiveViewComponent implements OnInit {
 
   onChange(event): void {
     this.selectedEl = event.target.value || "";
-    console.log(this.selectedEl);
     this.elEvent.emit(this.selectedEl);
   }
 
