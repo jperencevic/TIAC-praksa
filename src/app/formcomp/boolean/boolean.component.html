@@ -1,0 +1,9 @@
+<div class="form-group" *ngIf="!el._id">
+    <input type="checkbox" class="form-check-input" id="formEl.name" name="formEl.title" [(ngModel)]="formEl.defaultValue">
+    <label class="form-check-label" for="formEl.name">{{formEl.title}}</label>
+</div>
+
+<div class="form-group" *ngIf="el._id">
+    <input type="checkbox" class="form-check-input" id="formEl.name" name="formEl.title" [(ngModel)]="el.settings[formEl.name]">
+    <label class="form-check-label" for="formEl.name">{{formEl.title}}</label>
+</div>
