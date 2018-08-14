@@ -13,6 +13,8 @@ export class LiveViewComponent implements OnInit {
   showSelectOptions: boolean = false;
   options: Options[];
   selectedOption: Options;
+  selectedOptionExists: boolean = false;
+  
 
   elements: Elements[];
   selectedElement: Elements;
@@ -47,15 +49,20 @@ export class LiveViewComponent implements OnInit {
   }
 
   ShowOptionsSelections(){
+
     this.showSelectOptions=true;
+    this.selectedElement = null;
+
   }
   ExposeSelectedOp() {
     this.selectedElement=null;
     this.eventter.emit(this.selectedOption);
+    this.selectedOptionExists= true;
   }
 
   onChange(): void {
     this.showSelectOptions=false;
+    this.selectedOptionExists = false;
     this.selectedElementExists = true;
 
     this.options.filter(option => { if (option.objectType==this.selectedElement.objectType) this.selectedOption=option})
@@ -66,7 +73,6 @@ export class LiveViewComponent implements OnInit {
 
   SaveElement() {
     this.elementsService.addElement(this.selectedOption).subscribe();
-    this.ngOnInit();
   }
   DeleteElement() {
     this.elementsService.deleteEl(this.selectedElement._id).subscribe();
