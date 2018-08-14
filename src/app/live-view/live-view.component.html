@@ -3,24 +3,21 @@
 
 </div> -->
 
-  <div class="form-group">
-    <label for="opt" class="col-sm-4 col-form-label">Create new:</label>
-    <select id="opt" class="form-control" name="op" [(ngModel)]="selectedOp">
-      <option *ngFor="let x of options" [ngValue]="x">{{x.objectType}}</option>
-    </select>
-    <button type="submit" class="btn btn-primary" (click)='ExposeSelectedOp()'>new</button>
-    <button type="save" class="btn btn-info" (click)='SaveElement()'>save</button>
-  </div>
+<div class="form-group">
+  <label for="el" class="col-sm-4 col-form-label">Elements:</label>
+  <select id="el" class="form-control" name="el" (change)="onChange()" [(ngModel)]="selectedElement">
+    <option *ngFor="let e of elements" [ngValue]="e">{{e.settings.name}}</option>
+  </select>
 
-  <div class="form-group">
-      <label for="el" class="col-sm-4 col-form-label">Elements:</label>
-      <select id="el" class="form-control" name="el"  (change)="onChange($event)">
-        <option *ngFor="let e of elements" [value]="e._id">{{e.settings.name}}</option>
-      </select>
-      <button type="save" class="btn btn-info" (click)='UpdateElement()'>save</button>
-      <button type="delete" class="btn btn-danger" (click)='DeleteElement()'>delete</button>
-    </div>
-  
+</div>
 
+<button type="save" class="btn btn-info" (click)='SaveElement()' [disabled]="selectedElement || selectedOption">save</button>
+<button type="delete" class="btn btn-danger" (click)='DeleteElement()'[disabled]="selectedElement" >delete</button>
+<button *ngIf="selectedOption" type="submit" class="btn btn-primary" (click)='ShowOptionsSelections()' >new</button>
 
-
+<div class="form-group" *ngIf="showSelectOptions">
+  <label for="opt" class="col-sm-4 col-form-label">Select object type:</label>
+  <select id="opt" class="form-control" name="op" [(ngModel)]="selectedOption" (change)="ExposeSelectedOp() ">
+    <option *ngFor="let x of options" [ngValue]="x">{{x.objectType}}</option>
+  </select>
+</div>

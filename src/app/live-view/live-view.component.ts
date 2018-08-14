@@ -10,28 +10,31 @@ import { Elements } from "../../models/elements";
   styleUrls: ["./live-view.component.css"]
 })
 export class LiveViewComponent implements OnInit {
+  showSelectOptions: boolean = false;
   options: Options[];
-  selectedOp: Options;
+  selectedOption: Options;
 
   elements: Elements[];
-  // selectedEl: Elements;
+  selectedElement: Elements;
 
-  @Input()
-  element: Elements;
   @Output()
   eventter = new EventEmitter<Options>();
   @Output()
-  elEvent = new EventEmitter<string>();
+  elEvent = new EventEmitter<{element:Elements, option:Options}>();
 
   constructor(
     private optionsService: OptionsService,
     private elementsService: ElementsService
   ) {
+    this.selectedOption=new Options();
+    this.selectedElement=new Elements();
+    
   }
 
   ngOnInit() {
     this.populateOptions();
     this.populateElements();
+
   }
 
   populateOptions() {
@@ -42,22 +45,30 @@ export class LiveViewComponent implements OnInit {
     this.elementsService.getElements().subscribe(_ => (this.elements = _));
   }
 
+  ShowOptionsSelections(){
+    this.showSelectOptions=true;
+  }
   ExposeSelectedOp() {
-    this.eventter.emit(this.selectedOp);
+    this.selectedElement=new Elements();
+    this.eventter.emit(this.selectedOption);
   }
 
-  onChange(event): void {
-    const selectedEl = event.target.value || "";
-    this.elEvent.emit(selectedEl);
+  onChange(): void {
+    this.showSelectOptions=false;
+  
+
+    this.options.filter(option => { if (option.objectType==this.selectedElement.objectType) this.selectedOption=option})
+    this.elEvent.emit({element:this.selectedElement, option:this.selectedOption});
+    console.log(this.selectedElement);
+    console.log(this.selectedOption);
   }
 
   SaveElement() {
-    this.elementsService.addElement(this.selectedOp).subscribe();
+    this.elementsService.addElement(this.selectedOption).subscribe();
     this.ngOnInit();
-
   }
-  DeleteElement(){
-    this.elementsService.deleteEl(this.element._id).subscribe();
+  DeleteElement() {
+    this.elementsService.deleteEl(this.selectedElement._id).subscribe();
   }
   // setMyStyles() {
   //   let styles = {

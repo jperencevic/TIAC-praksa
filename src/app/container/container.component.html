@@ -1,5 +1,5 @@
 <div class="row">
-  <app-table-view class="col-lg-4 bl" [option]="activeOp" [element]="activeEl"></app-table-view>
-  <app-live-view class="col-lg-4 bl" (eventter)="onNew($event)" (elEvent)='getEl($event)' [element]="activeEl"></app-live-view>
-  <app-form-view class="col-lg-4 bl" [option]="activeOp" [element]="activeEl"></app-form-view>
+  <app-table-view class="col-lg-4 bl" [option]="activeOption" [element]="activeElement"></app-table-view>
+  <app-live-view class="col-lg-4 bl" (eventter)="onNew($event)" (elEvent)='getEl($event)'></app-live-view>
+  <app-form-view class="col-lg-4 bl" [option]="activeOption" [element]="activeElement"></app-form-view>
 </div>

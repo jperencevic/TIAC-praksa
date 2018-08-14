@@ -13,7 +13,7 @@ export class ElementsService {
 
   addElement(elAsOp: Options) {
     const element = new Elements();
-    element.objectType=elAsOp._id;
+    element.objectType=elAsOp.objectType;
     element.settings = {};
     elAsOp.settings.forEach(s => {
       element.settings[s.name] = s.defaultValue; 
