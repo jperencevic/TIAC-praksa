@@ -70,7 +70,7 @@ router.route('/elements/add').post((req, res) => {
         });
 });
 
-router.route('/elements/delete/:id').get((req, res) => {
+router.route('/elements/delete/:id').delete((req, res) => {
     Elements.remove({_id: req.params.id}, (err, issue) => {
         if (err)
             res.json(err);
