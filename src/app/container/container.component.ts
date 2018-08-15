@@ -16,7 +16,7 @@ export class ContainerComponent implements OnInit {
 
   onNew(selected: Options) {
     this.activeOption = selected;
-    this.activeElement = { _id: "", objectType: "", settings: {} };
+    this.activeElement ={ _id: "", objectType: "", settings: {} };
   }
 
   getEl(event) {

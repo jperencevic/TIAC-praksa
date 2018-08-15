@@ -33,6 +33,7 @@ export class LiveViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.selectedElement = new Elements();
     this.populateOptions();
     this.populateElements();
   }
@@ -73,21 +74,39 @@ export class LiveViewComponent implements OnInit {
   SaveElement() {
     this.elementsService.addElement(this.selectedOption).subscribe(_ => {
       this.selectedElement = _;
-      this.elementsService.getElements().subscribe(_ => (this.elements = _));
+      // this.options.filter(option => {
+      //   if (option.objectType == this.selectedElement.objectType)
+      //     this.selectedOption = option;
+      // });
+      console.log(this.selectedElement);
+      this.populateElements();
+      this.selectedElementExists = true;
     });
 
     this.showSelectOptions = false;
+    this, (this.selectedElementExists = false);
+    // this.elEvent.emit({
+    //   element: this.selectedElement,
+    //   option: this.selectedOption
+    // });
   }
   DeleteElement() {
-    this.elementsService
-      .deleteEl(this.selectedElement._id)
-      .subscribe(_ =>
-        this.elementsService.getElements().subscribe(_ => (this.elements = _))
-      );
+    this.elementsService.deleteEl(this.selectedElement._id).subscribe(_ =>
+      // this.elementsService.getElements().subscribe(_ => {
+      //   this.elements = _;
+
+      // }) 
+      {
+        alert(`Element  ${this.selectedElement.settings.name}  has been deleted`);
+        this.populateElements();
+        this.elEvent.emit({element:{ _id: "", objectType: "", settings: {}}, option:{ _id: "", objectType: "", settings: [""]}});
+      }
+    );
   }
 
   UpdateElement() {
     this.elementsService.updateElement(this.selectedElement).subscribe();
+    // this.elementsService.getElements().subscribe(_ => (this.elements = _));
   }
   // setMyStyles() {
   //   let styles = {

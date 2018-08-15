@@ -6,7 +6,7 @@
 <div class="form-group">
   <label for="el" class="col-sm-4 col-form-label">Elements:</label>
   <select id="el" class="form-control" name="el" (change)="onChange()" [(ngModel)]="selectedElement">
-    <option *ngFor="let e of elements" [ngValue]="e">{{e.settings.name}}</option>
+    <option *ngFor="let e of elements" [ngValue]="e" selected="selectedElement">{{e.settings.name}}</option>
   </select>
 </div>
 
@@ -21,3 +21,5 @@
     <option *ngFor="let x of options" [ngValue]="x">{{x.objectType}}</option>
   </select>
 </div>
+
+
