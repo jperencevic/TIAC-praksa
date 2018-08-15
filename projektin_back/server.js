@@ -63,7 +63,7 @@ router.route('/elements/add').post((req, res) => {
     let element = new Elements(req.body);
     element.save()
         .then(element => {
-            res.status(200).json({'element': element});
+            res.status(200).json(element);
         })
         .catch(err => {
             res.status(400).send('Failed to create new record');
@@ -75,7 +75,7 @@ router.route('/elements/delete/:id').delete((req, res) => {
         if (err)
             res.json(err);
         else
-            res.json('Removed successfully');
+            res.status(204).json('Removed successfully');
     });
 });
 
@@ -88,7 +88,7 @@ router.route('/elements/update/:id').put((req, res) => {
             element.settings = req.body.settings;
 
             element.save().then(element => {
-                res.json('Update done');
+                res.json(element);
             }).catch(err => {
                 res.status(400).send('Update failed');
             });

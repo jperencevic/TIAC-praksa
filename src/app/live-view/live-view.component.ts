@@ -27,13 +27,9 @@ export class LiveViewComponent implements OnInit {
   constructor(
     private optionsService: OptionsService,
     private elementsService: ElementsService
-  ) {
-    this.selectedOption = new Options();
-    this.selectedElement = new Elements();
-  }
+  ) {}
 
   ngOnInit() {
-    this.selectedElement = new Elements();
     this.populateOptions();
     this.populateElements();
   }
@@ -43,12 +39,17 @@ export class LiveViewComponent implements OnInit {
   }
 
   populateElements() {
-    this.elementsService.getElements().subscribe(_ => (this.elements = _));
+    this.elementsService.getElements().subscribe(elements => {
+      this.elements = elements;
+      this.selectedElement = null;
+    });
   }
 
   ShowOptionsSelections() {
+    this.selectedOption = null;
     this.showSelectOptions = true;
     this.selectedElement = null;
+    this.deleteFormAndTable();
   }
   ExposeSelectedOp() {
     this.selectedElement = null;
@@ -72,42 +73,34 @@ export class LiveViewComponent implements OnInit {
   }
 
   SaveElement() {
-    this.elementsService.addElement(this.selectedOption).subscribe(_ => {
-      this.selectedElement = _;
-      // this.options.filter(option => {
-      //   if (option.objectType == this.selectedElement.objectType)
-      //     this.selectedOption = option;
-      // });
-      console.log(this.selectedElement);
-      this.populateElements();
+    this.elementsService.addElement(this.selectedOption).subscribe(element => {
+      this.elements.push(element);
+      this.selectedElement = element;
+
+      this.elEvent.emit({
+        element: this.selectedElement,
+        option: this.selectedOption
+      });
+
       this.selectedElementExists = true;
+      this.showSelectOptions = false;
     });
-
-    this.showSelectOptions = false;
-    this, (this.selectedElementExists = false);
-    // this.elEvent.emit({
-    //   element: this.selectedElement,
-    //   option: this.selectedOption
-    // });
   }
-  DeleteElement() {
-    this.elementsService.deleteEl(this.selectedElement._id).subscribe(_ =>
-      // this.elementsService.getElements().subscribe(_ => {
-      //   this.elements = _;
 
-      // }) 
-      {
-        alert(`Element  ${this.selectedElement.settings.name}  has been deleted`);
-        this.populateElements();
-        this.elEvent.emit({element:{ _id: "", objectType: "", settings: {}}, option:{ _id: "", objectType: "", settings: [""]}});
-      }
-    );
+  DeleteElement() {
+    this.elementsService.deleteEl(this.selectedElement._id).subscribe(_ => {
+      alert(`Element  ${this.selectedElement.settings.name}  has been deleted`);
+      this.populateElements();
+      this.deleteFormAndTable();
+      this.selectedElementExists = false;
+    });
   }
 
   UpdateElement() {
+    console.log(this.selectedElement);
     this.elementsService.updateElement(this.selectedElement).subscribe();
-    // this.elementsService.getElements().subscribe(_ => (this.elements = _));
   }
+
   // setMyStyles() {
   //   let styles = {
   //     color: this.data.color,
@@ -122,4 +115,11 @@ export class LiveViewComponent implements OnInit {
   //   };
   //   return styles;
   // }
+
+  deleteFormAndTable() {
+    this.elEvent.emit({
+      element: { _id: "", objectType: "", settings: {} },
+      option: { _id: "", objectType: "", settings: [""] }
+    });
+  }
 }

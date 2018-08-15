@@ -11,6 +11,10 @@ export class ElementsService {
   uri = "http://localhost:4000/elements";
   constructor(private httpClient: HttpClient) { }
 
+  private log(message, args){
+    console.log(`[${message}]:`, args)
+  }
+
   addElement(elAsOp: Options):Observable<Elements> {
     const element = new Elements();
     element.objectType=elAsOp.objectType;
@@ -18,6 +22,8 @@ export class ElementsService {
     elAsOp.settings.forEach(s => {
       element.settings[s.name] = s.defaultValue; 
     });
+
+    this.log('Posting element', element);
     return this.httpClient.post<Elements>(`${this.uri}/add`, element);
   }
   
@@ -31,10 +37,12 @@ export class ElementsService {
   }
 
   deleteEl(id: string): Observable<Elements> {
+    this.log('Deleting element id:', id);
     return this.httpClient.delete<Elements>(`${this.uri}/delete/${id}`)
   }
 
   updateElement(updatedElement: Elements): Observable<Elements> {
+    this.log('Updating element', updatedElement);
     return this.httpClient.put<Elements>(`${this.uri}/update/${updatedElement._id}`, updatedElement);
   }
 }

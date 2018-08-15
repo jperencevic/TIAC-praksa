@@ -6,11 +6,13 @@
 <div class="form-group">
   <label for="el" class="col-sm-4 col-form-label">Elements:</label>
   <select id="el" class="form-control" name="el" (change)="onChange()" [(ngModel)]="selectedElement">
-    <option *ngFor="let e of elements" [ngValue]="e" selected="selectedElement">{{e.settings.name}}</option>
+    <option *ngFor="let e of elements" [ngValue]="e">
+      {{e.settings.name}}
+    </option>
   </select>
 </div>
 
-<button *ngIf="selectedOption" type="submit" class="btn btn-primary" (click)='ShowOptionsSelections()' >new</button>
+<button *ngIf="!showSelectOptions" type="submit" class="btn btn-primary" (click)='ShowOptionsSelections()' >new</button>
 <button *ngIf="!showSelectOptions && selectedElementExists" type="save" class="btn btn-info" (click)='UpdateElement()' >update</button>
 <button *ngIf="!showSelectOptions && selectedElementExists" type="delete" class="btn btn-danger" (click)='DeleteElement()' >delete</button>
 <button *ngIf="showSelectOptions && selectedOptionExists" type="save" class="btn btn-info" (click)='SaveElement()' >save</button>
